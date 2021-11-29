@@ -6,5 +6,8 @@ Rails.application.routes.draw do
   resources :books do
    resource :favorites
    resource :book_comments
+   resource :relationships, only: [:create, :destroy]
+  	get 'followings' => 'relationships#followings', as: 'followings'
+  	get 'followers' => 'relationships#followers', as: 'followers'
   end
 end
