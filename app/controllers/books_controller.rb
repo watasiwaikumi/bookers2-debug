@@ -5,12 +5,14 @@ before_action :authenticate_user!
      @book = Book.find(params[:id])
      @newbook = Book.new
      @user = @book.user
+     @book_comment = BookComment.new
   end
 
   def index
      @books = Book.all
      @book = Book.new
      @user = current_user
+     @book_comment = BookComment.new
   end
 
   def create
@@ -50,11 +52,11 @@ before_action :authenticate_user!
      @book.destroy
      redirect_to books_path
   end
-    
+
   private
 
   def book_params
-    params.require(:book).permit(:title, :body)
+    params.require(:book).permit(:title, :body, :user_id)
   end
 
 end

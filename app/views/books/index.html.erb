@@ -25,7 +25,7 @@
                  <%= message %>
                  <% end %>
              <% end %>
-             
+
           <%= form_with model:@book, local:true do |f| %>
 
           <div class="field">
@@ -66,8 +66,26 @@
            　     <% end %>
              </td>
              <td><%=book.body %></td>
+
+              <td>
+                <% if book.favorited_by?(current_user) %>
+                <td>
+                  <%= link_to book_favorites_path(book), method: :delete do %>
+                    ♥<%= book.favorites.count %>
+                  <% end %>
+                </td>
+                <% else %>
+                <td>
+                  <%= link_to book_favorites_path(book), method: :post do %>
+                    ♡<%= book.favorites.count %>
+                  <% end %>
+                </td>
+               <% end %>
+              </td>
+            <td>コメント数:<%= book.book_comments.count %></td>
           </tr>
         <% end %>
+
       </table>
     </div>
   </div>
