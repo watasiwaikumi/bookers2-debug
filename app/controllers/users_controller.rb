@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @books = @user.books
+    @books = Book.all
     @book = Book.new
   end
 
@@ -14,13 +14,26 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+    if @user != current_user
+      redirect_to user_path(current_user)
+    end
+  end
+  
+  def destroy
+    books = Book.find(params[:id])
+    books.destroy
+    flash[:notice] = "Book was successfully destroyed."
+    redirect_to books_path
   end
 
   def update
+    @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to user_path(@user), notice: "You have updated user successfully."
+      flash[:notice] = "You have updated user successfully."
+      redirect_to user_path(current_user)
     else
-      render "edit"
+      render :edit
     end
   end
 
