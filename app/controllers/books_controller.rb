@@ -10,9 +10,8 @@ class BooksController < ApplicationController
   end
 
   def index
-    @books = Book.all
+    @books = Book.left_joins(:week_favorites).group(:id).order(Arel.sql('count(book_id) desc'))
     @book = Book.new
-    @user = current_user
   end
 
   def create
