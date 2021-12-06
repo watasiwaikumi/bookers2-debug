@@ -8,8 +8,8 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Users</h2>
-      <%= link_to "グループを作成する", new_group_path: @group %> | 
-      <%= link_to "グループ一覧", group_path: @group %>
+      <%= link_to "グループを作成する", 'groups/new', groups: @group %> |
+      <%= link_to "グループ一覧", 'groups/index', groups: @groups %>
       <%= render 'index',users: @users %>
     </div>
   </div>
